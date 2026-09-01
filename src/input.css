@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* Only scan the deployed HTML for class usage (keeps the built file tiny). */
+@source "../public/**/*.html";
+
+/* ---- Design tokens (generate utilities like bg-brand, text-ink-soft, font-serif) ---- */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  --color-cream: #fbfaf8;
+  --color-ink: #1a1c1f;
+  --color-ink-soft: #4b5057;
+  --color-ink-faint: #8b9098;
+  --color-line: #e7e4de;
+  --color-brand: #1f5c4d;
+  --color-brand-soft: #e8f0ec;
+  --color-brand-ink: #123a30;
+
+  --shadow-soft: 0 1px 2px rgba(20, 24, 28, .04), 0 8px 24px rgba(20, 24, 28, .06);
+
+  --animate-pulse-ring: pulse-ring 2.4s infinite;
+
+  @keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(31, 92, 77, .45); }
+    70%  { box-shadow: 0 0 0 8px rgba(31, 92, 77, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(31, 92, 77, 0); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ---- Reusable component classes (repeated UI, kept out of the markup) ---- */
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[940px] px-6;
+  }
+
+  .section-label {
+    @apply mb-3 text-[0.82rem] font-semibold uppercase tracking-[0.08em] text-ink-faint;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-brand px-[22px] py-3 text-[0.96rem] font-medium text-white shadow-soft transition duration-150 hover:-translate-y-px hover:bg-brand-ink;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-line bg-white px-[22px] py-3 text-[0.96rem] font-medium text-ink transition duration-150 hover:-translate-y-px hover:border-brand hover:text-brand;
+  }
+  .btn-primary svg,
+  .btn-ghost svg { @apply h-[18px] w-[18px]; }
+
+  .card {
+    @apply rounded-[14px] border border-line bg-white px-6 py-[26px] transition duration-150 hover:-translate-y-[3px] hover:border-[#d8d4cc] hover:shadow-soft;
+  }
+  .card-icon {
+    @apply mb-4 grid h-[42px] w-[42px] place-items-center rounded-[11px] bg-brand-soft text-brand;
+  }
+  .card-icon svg { @apply h-[22px] w-[22px]; }
+
+  .social {
+    @apply inline-flex items-center gap-[9px] rounded-full border border-line bg-cream px-[18px] py-[11px] text-[0.94rem] font-medium text-ink transition duration-150 hover:-translate-y-px hover:border-brand hover:text-brand;
+  }
+  .social svg { @apply h-[18px] w-[18px]; }
+
+  .contact-email {
+    @apply mb-[30px] inline-block border-b-2 border-transparent font-serif text-[clamp(1.2rem,3vw,1.6rem)] font-medium text-brand transition-colors hover:border-brand;
+  }
+}
